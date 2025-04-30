@@ -40,6 +40,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!isAuthenticated()) {
+      console.log("checked auth")
       router.push("/login")
       return
     }

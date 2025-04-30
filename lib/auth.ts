@@ -7,7 +7,7 @@ interface DecodedToken {
 
 // Function to login user
 export async function loginUser(username: string, password: string): Promise<void> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,18 +21,24 @@ export async function loginUser(username: string, password: string): Promise<voi
   }
 
   const data = await response.json()
+  console.log("res login", data)
   localStorage.setItem("token", data.token)
+  // Set cookie with token
+  document.cookie = `token=${data.token}; path=/; max-age=86400` // 24 hours
 }
 
 // Function to logout user
 export function logoutUser(): void {
   localStorage.removeItem("token")
+  // Clear the token cookie
+  document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
   window.location.href = "/login"
 }
 
 // Function to check if user is authenticated
 export function isAuthenticated(): boolean {
   const token = localStorage.getItem("token")
+  console.log("is Auth", token)
   if (!token) return false
 
   try {
