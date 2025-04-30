@@ -29,15 +29,14 @@ const client = new ApolloClient({
 const GET_DEPARTMENTS = gql`
   query GetDepartments($page: Int) {
     getDepartments(page: $page) {
-      departments {
         id
         name
         subDepartments {
           id
           name
         }
-      }
-      totalPages
+      
+      # totalPages
     }
   }
 `
