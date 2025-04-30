@@ -31,7 +31,7 @@ const GET_DEPARTMENTS = gql`
     getDepartments(page: $page) {
         id
         name
-        subDepartments {
+        sub_departments {
           id
           name
         }
@@ -46,7 +46,7 @@ const CREATE_DEPARTMENT = gql`
     createDepartment(input: $input) {
       id
       name
-      subDepartments {
+      sub_departments {
         id
         name
       }
