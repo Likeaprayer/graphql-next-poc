@@ -61,7 +61,11 @@ export default function UpdateDepartmentDialog({
     setIsSubmitting(true)
 
     try {
-      await updateDepartment(department.id, departmentName)
+
+      await updateDepartment({
+        id: department.id,
+        name: departmentName
+      })
       onSuccess()
     } catch (error) {
       toast({

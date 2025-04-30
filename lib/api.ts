@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink, gql } from "@apollo/client"
 import { setContext } from "@apollo/client/link/context"
 import { getAuthToken } from "./auth"
-import type { CreateDepartmentInput, Department, PaginatedDepartmentsResponse } from "./types"
+import type { CreateDepartmentInput, Department, PaginatedDepartmentsResponse, UpdateDepartmentInput } from "./types"
 
 // Create an HTTP link
 const httpLink = createHttpLink({
@@ -27,8 +27,8 @@ const client = new ApolloClient({
 
 // GraphQL Queries and Mutations
 const GET_DEPARTMENTS = gql`
-  query GetDepartments($page: Int) {
-    getDepartments(page: $page) {
+  query GetDepartments {
+    getDepartments {
         id
         name
         sub_departments {
@@ -43,7 +43,7 @@ const GET_DEPARTMENTS = gql`
 
 const CREATE_DEPARTMENT = gql`
   mutation CreateDepartment($input: CreateDepartmentInput!) {
-    createDepartment(input: $input) {
+    createDepartment(createDepartmentInput: $input) {
       id
       name
       sub_departments {
@@ -55,8 +55,8 @@ const CREATE_DEPARTMENT = gql`
 `
 
 const UPDATE_DEPARTMENT = gql`
-  mutation UpdateDepartment($id: Int!, $name: String!) {
-    updateDepartment(id: $id, name: $name) {
+  mutation UpdateDepartment($input: UpdateDepartmentInput) {
+    updateDepartment(updateDepartmentInput: $input) {
       id
       name
     }
@@ -64,7 +64,7 @@ const UPDATE_DEPARTMENT = gql`
 `
 
 const DELETE_DEPARTMENT = gql`
-  mutation DeleteDepartment($id: Int!) {
+  mutation DeleteDepartment($id: String!) {
     deleteDepartment(id: $id)
   }
 `
@@ -74,7 +74,6 @@ export async function getDepartments(page = 1): Promise<PaginatedDepartmentsResp
   try {
     const { data } = await client.query({
       query: GET_DEPARTMENTS,
-      variables: { page },
       fetchPolicy: "network-only",
     })
     return data.getDepartments
@@ -97,11 +96,11 @@ export async function createDepartment(input: CreateDepartmentInput): Promise<De
   }
 }
 
-export async function updateDepartment(id: number, name: string): Promise<Department> {
+export async function updateDepartment(input: UpdateDepartmentInput): Promise<Department> {
   try {
     const { data } = await client.mutate({
       mutation: UPDATE_DEPARTMENT,
-      variables: { id, name },
+      variables: { input },
     })
     return data.updateDepartment
   } catch (error) {
@@ -110,7 +109,7 @@ export async function updateDepartment(id: number, name: string): Promise<Depart
   }
 }
 
-export async function deleteDepartment(id: number): Promise<boolean> {
+export async function deleteDepartment(id: string): Promise<boolean> {
   try {
     const { data } = await client.mutate({
       mutation: DELETE_DEPARTMENT,

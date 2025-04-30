@@ -1,5 +1,5 @@
 export interface Department {
-  id: number
+  id: string
   name: string
   subDepartments: Department[]
 }
@@ -7,6 +7,11 @@ export interface Department {
 export interface CreateDepartmentInput {
   name: string
   subDepartments: { name: string }[] | null
+}
+
+export interface UpdateDepartmentInput {
+  id: string
+  name: string
 }
 
 export interface PaginatedDepartmentsResponse {

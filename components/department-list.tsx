@@ -37,12 +37,12 @@ export default function DepartmentList({
   totalPages,
   onPageChange,
 }: DepartmentListProps) {
-  const [expandedDepartments, setExpandedDepartments] = useState<Record<number, boolean>>({})
+  const [expandedDepartments, setExpandedDepartments] = useState<Record<string, boolean>>({})
   const [departmentToUpdate, setDepartmentToUpdate] = useState<Department | null>(null)
   const [departmentToDelete, setDepartmentToDelete] = useState<Department | null>(null)
   const { toast } = useToast()
 
-  const toggleExpand = (departmentId: number) => {
+  const toggleExpand = (departmentId: string) => {
     setExpandedDepartments((prev) => ({
       ...prev,
       [departmentId]: !prev[departmentId],
