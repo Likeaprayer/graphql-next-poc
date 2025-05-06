@@ -42,6 +42,7 @@ export default function DepartmentList({
   const [departmentToDelete, setDepartmentToDelete] = useState<Department | null>(null)
   const { toast } = useToast()
 
+
   const toggleExpand = (departmentId: string) => {
     setExpandedDepartments((prev) => ({
       ...prev,
@@ -116,7 +117,7 @@ export default function DepartmentList({
 
   const renderDepartment = (department: Department, level = 0) => {
     const isExpanded = expandedDepartments[department.id] || false
-    const hasSubDepartments = department.subDepartments && department.subDepartments.length > 0
+    const hasSubDepartments = department.sub_departments && department.sub_departments.length > 0
 
     return (
       <div key={department.id} className="mb-2">
@@ -155,7 +156,7 @@ export default function DepartmentList({
           </div>
         </div>
         {isExpanded && hasSubDepartments && (
-          <div className="mt-1">{department.subDepartments.map((subDept) => renderDepartment(subDept, level + 1))}</div>
+          <div className="mt-1">{department.sub_departments.map((subDept) => renderDepartment(subDept, level + 1))}</div>
         )}
       </div>
     )

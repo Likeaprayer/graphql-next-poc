@@ -23,10 +23,11 @@ export default function DashboardPage() {
   const fetchDepartments = async (page = 1) => {
     setIsLoading(true)
     try {
-      const { departments, totalPages: pages } = await getDepartments(page)
-      setDepartments(departments)
-      setTotalPages(pages)
-      setCurrentPage(page)
+      const depts = await getDepartments(page)
+      setDepartments(depts)
+      // console.log
+      // setTotalPages(pages)
+      // setCurrentPage(page)
     } catch (error) {
       toast({
         title: "Error",
@@ -40,7 +41,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      console.log("checked auth")
+
       router.push("/login")
       return
     }

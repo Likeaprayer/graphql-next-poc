@@ -94,7 +94,7 @@ export default function CreateDepartmentDialog({ open, onOpenChange, onSuccess }
     try {
       await createDepartment({
         name: departmentName,
-        subDepartments: subDepartments.length > 0 ? subDepartments : null,
+        sub_departments: subDepartments.length > 0 ? subDepartments : null,
       })
 
       resetForm()

@@ -28,7 +28,6 @@ export default function LoginPage() {
         title: "Login successful",
         description: "You have been logged in successfully.",
       })
-      console.log("I WORKED")
       router.push("/dashboard")
       return
     } catch (error) {

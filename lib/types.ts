@@ -1,12 +1,12 @@
 export interface Department {
   id: string
   name: string
-  subDepartments: Department[]
+  sub_departments: Department[]
 }
 
 export interface CreateDepartmentInput {
   name: string
-  subDepartments: { name: string }[] | null
+  sub_departments: { name: string }[] | null
 }
 
 export interface UpdateDepartmentInput {

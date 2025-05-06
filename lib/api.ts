@@ -55,7 +55,7 @@ const CREATE_DEPARTMENT = gql`
 `
 
 const UPDATE_DEPARTMENT = gql`
-  mutation UpdateDepartment($input: UpdateDepartmentInput) {
+  mutation UpdateDepartment($input: UpdateDepartmentInput!) {
     updateDepartment(updateDepartmentInput: $input) {
       id
       name
@@ -70,7 +70,7 @@ const DELETE_DEPARTMENT = gql`
 `
 
 // API Functions
-export async function getDepartments(page = 1): Promise<PaginatedDepartmentsResponse> {
+export async function getDepartments(page = 1): Promise<Department[]> {
   try {
     const { data } = await client.query({
       query: GET_DEPARTMENTS,
